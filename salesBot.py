@@ -110,8 +110,8 @@ class openseaSalesBot():
                             'url': asset_info['asset_image']
                         },
                         'footer': {
-                            'text': f'Your Project Name', # Change this to your projects name
-                            'icon_url': 'https://assets.stickpng.com/images/580b57fbd9996e24bc43bdf6.png' # Change this to your projects logo
+                            'text': f'Your Project Name',
+                            'icon_url': 'https://assets.stickpng.com/images/580b57fbd9996e24bc43bdf6.png' 
                         }
                     }
                 ]
@@ -128,7 +128,6 @@ class openseaSalesBot():
         sale_price = sale_data[2]
         payment_token = sale_data[3]
 
-        # Edit this according to the NFT names
         tweet_text = f'{asset_name} was purchased for {sale_price} {payment_token}\n{asset_link}'
         print(tweet_text)
 
