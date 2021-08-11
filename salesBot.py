@@ -3,16 +3,6 @@ import json
 import time
 from datetime import datetime
 
-def Sale(sale_data):
-    asset_name = sale_data[0]
-    asset_link = sale_data[1]
-    sale_price = sale_data[2]
-    payment_token = sale_data[3]
-
-    # Edit this according to the NFT names
-    tweet_text = f'{asset_name} was purchased for {sale_price} {payment_token}\n{asset_link}'
-
-    print(tweet_text)
 
 class openseaSalesBot():
 
@@ -86,9 +76,7 @@ class openseaSalesBot():
             json_list.append(json_info)
         return json_list
 
-    def sendWebhook(self, sale_json):
-        discord_webhook = '' # Enter the discord webhook
-
+    def Info(self, sale_json):
         asset_info = sale_json['asset_info']
         seller_info = sale_json['seller_info']
         buyer_info = sale_json['buyer_info']
@@ -129,7 +117,20 @@ class openseaSalesBot():
                 ]
             }
         )
-        requests.post(discord_webhook, data=json_info, headers={"Content-Type": "application/json"})
+        #print(json_info)
+        import pprint
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(json_info)
+
+    def Sale(self, sale_data):
+        asset_name = sale_data[0]
+        asset_link = sale_data[1]
+        sale_price = sale_data[2]
+        payment_token = sale_data[3]
+
+        # Edit this according to the NFT names
+        tweet_text = f'{asset_name} was purchased for {sale_price} {payment_token}\n{asset_link}'
+        print(tweet_text)
 
     def runInstance(self):
         old_sale_list = self.requestLastSales()
@@ -174,13 +175,13 @@ class openseaSalesBot():
                             
                             sale_data = [asset_name, asset_link, sale_price, payment_token]
 
-                            try:
-                                self.sendWebhook(new_sales_list[j])
-                            except Exception as e:
-                                print(f'Error: {e}') 
+                            #try:
+                            #    self.Info(new_sales_list[j])
+                            #except Exception as e:
+                            #    print(f'Error: {e}') 
 
                             try:
-                                Sale(sale_data)
+                                self.Sale(sale_data)
                             except Exception as e:
                                 print(f'Error: {e}')
                             break
